@@ -8,14 +8,17 @@
 import Foundation
 import Combine
 
+// MARK: - 웹뷰 모델: 상위 View와 Data를 연결시켜준다.
 class WebViewModel: ObservableObject {
     var webViewNavigationPublisher = PassthroughSubject<WebViewNavigation, Never>()
-    var showWebTitle = PassthroughSubject<String, Never>()
     var showLoader = PassthroughSubject<Bool, Never>()
+    var sheetOpen = PassthroughSubject<Bool, Never>()
+    var targetUrl = PassthroughSubject<String, Never>()
     var valuePublisher = PassthroughSubject<String, Never>()
 }
 
-// For identifiying WebView's forward and backward navigation
+// MARK: - 웹뷰 탐색 타입.
+// SIGNUS에서는 사용되지 않음
 enum WebViewNavigation {
     case backward, forward, reload
 }
