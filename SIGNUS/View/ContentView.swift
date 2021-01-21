@@ -13,6 +13,9 @@ struct ContentView: View {
     @State var sheetOpen = false    // 추가 페이지
     @State var targetUrl = ""       // 추가 페이지 Url
     
+    @State var animate = false
+    @State var endAnimate = false
+    
     var body: some View {
         ZStack {
             WebView(url: "https://soojle.sejong.ac.kr", viewModel: viewModel)
@@ -26,10 +29,14 @@ struct ContentView: View {
                     }
                 }
             
-            if showLoader {
-                Loader()
+            if !endAnimate {
+                Image("logoSmall")
+                    .resizable()
+                    .renderingMode(.original)
+                    .scaleEffect(animate ? 1 : 0)
             }
         }
+        .onAppear(perform: animateSplash)
         .onReceive(self.viewModel.showLoader.receive(on: RunLoop.main)) { value in
             self.showLoader = value
         }
@@ -57,6 +64,18 @@ struct ContentView: View {
                     // bottom
                 }
             }))
+    }
+    
+    func animateSplash() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(Animation.easeOut(duration: 2)) {
+                animate.toggle()
+            }
+            
+            withAnimation(Animation.easeOut(duration: 1)) {
+                endAnimate.toggle()
+            }
+        }
     }
 }
 

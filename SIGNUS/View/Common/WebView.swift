@@ -4,6 +4,7 @@
 //
 //  Created by 김형석 on 2021/01/21.
 //
+// https://developer.apple.com/documentation/webkit/wknavigationdelegate 참고 자료
 
 import Foundation
 import UIKit
